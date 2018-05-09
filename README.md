@@ -1,21 +1,18 @@
 # docker-ros-box
 
-Dockerized ros desktop full with X11 support
-
-
-## Credits
-
-This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/).
-
-
-## What is does
+Dockerized [ROS](http://www.ros.org/) environement with X11 support based on [ros-lunar-desktop-full](https://hub.docker.com/r/osrf/ros/).
 
 Using this project you will be able to run a complete ROS environement inside a Docker container.
 
 This is very handfull for example if your host operating system is *not* debian based.
 
 
-## Usage
+# Credits
+
+This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/).
+
+
+# Usage
 
 1. Download this repository and unzip it somewhere:
 ```
@@ -38,24 +35,24 @@ Once a container is run, you can connect additionnal terminals using:
 The `src` folder is automatically mounted into `/home/developer/catkin_ws/src` so you can work there from your host system.
 
 
-## Additionnal notes
+# Additionnal notes
 
-- The scripts assume you run docker as root, adding `sudo` in front of them.
+- The scripts assume you run docker as root using `sudo`.
 
 
-## Contribute
+# Contribute
 
 Feel free to use this project and improve it.
 
 If you would like to contribute, clone the repository, commit your modifications and open a PR
 
 
-## Author
+# Author
 
 [Pierre Killy](https://www.linkedin.com/in/pierrekilly/)
 
 
-## License
+# License
 
 MIT
 
