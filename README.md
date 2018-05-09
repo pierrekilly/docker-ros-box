@@ -5,7 +5,7 @@ Dockerized ros desktop full with X11 support
 
 ## Credits
 
-This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/)
+This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/).
 
 
 ## What is does
@@ -21,10 +21,10 @@ This is very handfull for example if your host operating system is *not* debian 
 ```
 mkdir ~/my_ros_project
 cd ~/my_ros_project
-wget "https://github.com/pierrekilly/docker-ros-box/archive/master.zip" -O docker-ros-box.zip
-unzip docker-ros-box.zip
+wget "https://github.com/pierrekilly/docker-ros-box/archive/master.zip" -O docker-ros-box-master.zip
+unzip docker-ros-box-master.zip
 ```
-2. Update your UID and GIU in `Dockerfile`
+2. Update your UID and GID in `Dockerfile`
 3. Run the container:
 ```
 ./start.sh
@@ -58,6 +58,5 @@ If you would like to contribute, clone the repository, commit your modifications
 ## License
 
 MIT
-
 
 
