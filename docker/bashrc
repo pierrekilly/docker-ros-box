@@ -15,6 +15,7 @@ export EDITOR='vim'
 export LESS="-iMSx4 -FX -SR"
 alias less="less ${LESS}"
 export PAGER="less ${LESS}"
+export QT_X11_NO_MITSHM=1
 
 function returncode
 {

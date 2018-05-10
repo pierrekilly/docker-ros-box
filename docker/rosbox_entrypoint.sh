@@ -9,7 +9,7 @@ mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin build --no-status
 source devel/setup.bash
-cd
+cd ~
 
 /bin/bash
 

@@ -1,41 +1,53 @@
 # docker-ros-box
 
-Dockerized [ROS](http://www.ros.org/) environement with X11 support based on [ros-lunar-desktop-full](https://hub.docker.com/r/osrf/ros/).
+Dockerized [ROS](http://www.ros.org/) environment with X11 support based on [ros-lunar-desktop-full](https://hub.docker.com/r/osrf/ros/).
 
-Using this project you will be able to run a complete ROS environement inside a Docker container.
+Using this project you will be able to run a complete ROS environment inside a Docker container.
 
-This is very handfull for example if your host operating system is *not* debian based.
+This is very handful for example if your host operating system is *not* debian based.
 
 
 # Credits
 
-This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/).
+This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/) as well as [docker-opengl-mesa](https://github.com/thewtex/docker-opengl-mesa) for the hardware acceleration support.
 
 
 # Usage
 
-1. Download this repository and unzip it somewhere:
+1. Clone the repository:
+
+2. Initialize your ROS box:
 ```
-mkdir ~/my_ros_project
-cd ~/my_ros_project
-wget "https://github.com/pierrekilly/docker-ros-box/archive/master.zip" -O docker-ros-box-master.zip
-unzip docker-ros-box-master.zip
+./docker-ros-box/init-ros-box.sh [ros_distro] [target]
+    ros_distro        The ROS distribution to work with (lunar, kinetic, etc.)
+    target            The target directory to deploy the basic setup
 ```
-2. Update your UID and GID in `Dockerfile`
-3. Run the container:
+Building the docker container image can take some time depending on your internet connexion. Please be patient.
+
+Once the initialization is done, your dockerized ROS box is ready.
+
+In the `target` directory you will find 4 files:
+
+- `ros_distro`: This file contains the ROS distribution used in your project. Do not touch this file.
+- `src`: Put your ROS project sources in this directory. It is automatically mounted in ~/catkin_ws/src inside the ROS box so you can work there from your host system.
+- `utils.include.sh`: A shell script to be included by the scripts below.
+- `start.sh`: Run this script to start the container and open a shell in it. You cannot run the same container several times.
+- `join.sh`: Run this script to open an additional shell in a running ROS box. You can run this script several times to open several shellson the same ROS box.
+
+3. Start you ROS box
 ```
+cd [target]
 ./start.sh
 ```
 
-Once a container is run, you can connect additionnal terminals using:
+4. Open additional shells to the same ROS box
 ```
-./open.sh
+cd [target]
+./join.sh
 ```
 
-The `src` folder is automatically mounted into `/home/developer/catkin_ws/src` so you can work there from your host system.
 
-
-# Additionnal notes
+# Additional notes
 
 - The scripts assume you run docker as root using `sudo`.
 
