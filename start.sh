@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 image_id=`sudo docker ps -f "ancestor=docker-ros-box" -f "status=running" -q`
 start_path="$( cd "$(dirname "$0")" ; pwd -P )"
