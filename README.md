@@ -9,12 +9,15 @@ This is very handful for example if your host operating system is *not* debian b
 
 # Credits
 
-This project is highly inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box) and [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/) as well as [docker-opengl-mesa](https://github.com/thewtex/docker-opengl-mesa) for the hardware acceleration support.
+This project is inspired by [docker-browser-ros](https://github.com/sameersbn/docker-browser-box), [this blog post from Fabio Rehm](http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/) as well as [docker-opengl-mesa](https://github.com/thewtex/docker-opengl-mesa) for the hardware acceleration support.
 
 
 # Usage
 
 1. Clone the repository:
+```
+git clone https://github.com/pierrekilly/docker-ros-box.git
+```
 
 2. Initialize your ROS box:
 ```
@@ -34,7 +37,7 @@ In the `target` directory you will find 4 files:
 - `start.sh`: Run this script to start the container and open a shell in it. You cannot run the same container several times.
 - `join.sh`: Run this script to open an additional shell in a running ROS box. You can run this script several times to open several shellson the same ROS box.
 
-3. Start you ROS box
+3. Start your ROS box
 ```
 cd [target]
 ./start.sh
