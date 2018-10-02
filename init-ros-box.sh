@@ -54,9 +54,17 @@ sudo docker build \
 echo "create a new container from this image..."
 container_name="`echo ${target} | sed -e 's/[^a-zA-Z0-9_.-][^a-zA-Z0-9_.-]*/-/g' | sed -e 's/^[^a-zA-Z0-9]*//g'`"
 cd "${target}"
+
+XSOCK=/tmp/.X11-unix
+XAUTH=/tmp/.docker.xauth
+touch $XAUTH
+xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
+
 sudo docker create \
         -e DISPLAY=$DISPLAY \
-        -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
+        --volume=$XSOCK:$XSOCK:rw \
+        --volume=$XAUTH:$XAUTH:rw \
+        --env="XAUTHORITY=${XAUTH}" \
         --device=/dev/dri/card0:/dev/dri/card0 \
         -v "${target}/src:/home/${ros_distro}-dev/catkin_ws/src" \
         --name "${container_name}" \
