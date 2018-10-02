@@ -59,12 +59,11 @@ sudo docker create \
         -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
         --device=/dev/dri/card0:/dev/dri/card0 \
         -v "${target}/src:/home/${ros_distro}-dev/catkin_ws/src" \
-	--name "${container_name}" \
+        --name "${container_name}" \
         -it ${image_tag}
 
 sudo docker ps -aqf "name=${container_name}" > "${target}/docker_id"
 chmod 444 "${target}/docker_id"
-
 
 # That's it!
 cd "${current_dir}"
@@ -80,5 +79,3 @@ echo "    go.sh         Run this script to start the container and/or open a she
 echo
 echo "Have fun!"
 echo
-
-

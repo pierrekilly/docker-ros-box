@@ -37,4 +37,3 @@ fi
 export BUILDDIR=/tmp
 export MAKEFLAGS="-j$(nproc) $MAKEFLAGS"
 export LD_LIBRARY_PATH="/usr/lib:$LD_LIBRARY_PATH"
-
