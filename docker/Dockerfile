@@ -18,7 +18,7 @@ RUN apt-get update && \
 
 RUN mkdir -p /home/${ros_distro}-dev/catkin_ws/src && \
     echo "${ros_distro}-dev:x:${uid}:${gid}:Developer,,,:/home/${ros_distro}-dev:/bin/bash" >> /etc/passwd && \
-    echo "${ros_distro}-dev:x:${uid}:" >> /etc/group && \
+    echo "${ros_distro}-dev:x:${gid}:" >> /etc/group && \
     echo "${ros_distro}-dev ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${ros_distro}-dev && \
     chmod 0440 /etc/sudoers.d/${ros_distro}-dev && \
     chown ${uid}:${gid} -R /home/${ros_distro}-dev
