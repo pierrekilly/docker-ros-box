@@ -60,5 +60,3 @@ Feel free to use this project, fork it and improve it. If you do so, please comm
 # License
 
 MIT
-
-

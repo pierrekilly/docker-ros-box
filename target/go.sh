@@ -19,4 +19,3 @@ fi
 
 # Joining the container
 sudo docker exec -ti ${container_id} bash
-

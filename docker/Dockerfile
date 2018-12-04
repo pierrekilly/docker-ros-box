@@ -32,4 +32,3 @@ COPY bash_profile /root/.bash_profile
 
 COPY rosbox_entrypoint.sh /rosbox_entrypoint.sh
 ENTRYPOINT /rosbox_entrypoint.sh
-
