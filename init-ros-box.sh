@@ -5,6 +5,13 @@ set -e
 current_dir=`pwd -P`
 script_dir="$( cd "$(dirname "$0")" ; pwd -P )"
 
+sudo=y
+
+# If user is part of docker group, sudo isn't necessary
+if groups $USER | grep &>/dev/null '\bdocker\b'; then
+    sudo=n
+fi
+
 if [ "$2" == "" ]
 then
 	echo
@@ -43,13 +50,23 @@ fi
 # Build the docker image
 echo "Build the docker image... (This can take some time)"
 cd "${script_dir}/docker"
-sudo docker build \
-	--quiet \
-	--build-arg ros_distro="${ros_distro}" \
+if [ "$sudo" = "n" ]; then
+    docker build \
+        --quiet \
+	    --build-arg ros_distro="${ros_distro}" \
         --build-arg uid="${uid}" \
         --build-arg gid="${gid}" \
-	-t ${image_tag} \
-	.
+    	-t ${image_tag} \
+    	.
+else
+    sudo docker build \
+        --quiet \
+	    --build-arg ros_distro="${ros_distro}" \
+        --build-arg uid="${uid}" \
+        --build-arg gid="${gid}" \
+    	-t ${image_tag} \
+    	.
+fi
 
 echo "create a new container from this image..."
 container_name="`echo ${target} | sed -e 's/[^a-zA-Z0-9_.-][^a-zA-Z0-9_.-]*/-/g' | sed -e 's/^[^a-zA-Z0-9]*//g'`"
@@ -60,17 +77,31 @@ XAUTH=/tmp/.docker.xauth
 touch $XAUTH
 xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 
-sudo docker create \
-        -e DISPLAY=$DISPLAY \
-        --volume=$XSOCK:$XSOCK:rw \
-        --volume=$XAUTH:$XAUTH:rw \
-        --env="XAUTHORITY=${XAUTH}" \
-        --device=/dev/dri/card0:/dev/dri/card0 \
-        -v "${target}/src:/home/${ros_distro}-dev/catkin_ws/src" \
-        --name "${container_name}" \
-        -it ${image_tag}
+if [ "$sudo" = "n" ]; then
+    docker create \
+            -e DISPLAY=$DISPLAY \
+            --volume=$XSOCK:$XSOCK:rw \
+            --volume=$XAUTH:$XAUTH:rw \
+            --env="XAUTHORITY=${XAUTH}" \
+            --device=/dev/dri/card0:/dev/dri/card0 \
+            -v "${target}/src:/home/${ros_distro}-dev/catkin_ws/src" \
+            --name "${container_name}" \
+            -it ${image_tag}
 
-sudo docker ps -aqf "name=${container_name}" > "${target}/docker_id"
+    docker ps -aqf "name=${container_name}" > "${target}/docker_id"
+else
+    sudo docker create \
+            -e DISPLAY=$DISPLAY \
+            --volume=$XSOCK:$XSOCK:rw \
+            --volume=$XAUTH:$XAUTH:rw \
+            --env="XAUTHORITY=${XAUTH}" \
+            --device=/dev/dri/card0:/dev/dri/card0 \
+            -v "${target}/src:/home/${ros_distro}-dev/catkin_ws/src" \
+            --name "${container_name}" \
+            -it ${image_tag}
+
+    sudo docker ps -aqf "name=${container_name}" > "${target}/docker_id"
+fi
 chmod 444 "${target}/docker_id"
 
 # That's it!
