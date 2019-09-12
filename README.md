@@ -41,12 +41,6 @@ cd [target]
 ./go.sh
 ```
 
-
-# Additional notes
-
-- The scripts assume you run docker as root using `sudo`.
-
-
 # Contribute
 
 Feel free to use this project, fork it and improve it. If you do so, please commit your modifications and open a PR. Thanks! :)
